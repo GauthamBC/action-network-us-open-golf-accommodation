@@ -142,12 +142,12 @@
 
   /* Queens stay explorer */
   .stay-builder{width:100%;margin-top:18px;border:1px solid #ccdcf5;border-top:5px solid var(--an-green);background:#f3f7ff;padding:16px 16px 0;scroll-margin-top:52px}
-  .stay-builder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding:0 0 12px}
+  .stay-builder-head{display:block;padding:0 0 12px}
   .stay-builder-copy{width:100%;max-width:none}
   .stay-builder-kicker{display:inline-block;font-family:var(--ui);font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--an-green-deep);padding:5px 8px;margin-bottom:7px}
-  .stay-builder h3{margin:0;font-family:var(--display);font-size:30px;font-weight:900;line-height:1.08;text-transform:uppercase;letter-spacing:-.008em;color:var(--an-navy)}
+  .stay-builder h3{width:100%;margin:0;font-family:var(--display);font-size:28px;font-weight:900;line-height:1.04;text-transform:uppercase;letter-spacing:-.012em;color:var(--an-navy)}
   .stay-builder-sub{width:100%;margin:6px 0 0;font-family:var(--ui);font-size:15.5px;line-height:1.55;color:#4f6069}
-  .platform-switch{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid #bac5ca;background:#fff;flex:0 0 auto;margin-top:2px}
+  .platform-switch{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid #bac5ca;background:#fff;margin-top:12px}
   .platform-switch button{border:0;border-right:1px solid #bac5ca;background:#fff;padding:11px 14px;cursor:pointer;font-family:var(--ui);font-size:13px;font-weight:900;letter-spacing:.035em;text-transform:uppercase;color:#50606a}
   .platform-switch button:last-child{border-right:0}
   .platform-switch button[aria-pressed="true"]{background:var(--an-navy);color:#fff}
@@ -187,14 +187,14 @@
     .score{padding-left:16px;padding-right:16px}
     .score .value{font-size:31px}
     .jump button{padding:10px 12px;font-size:11px}
-    .stay-builder-head{gap:12px}
+    .stay-builder-head{display:block}
     .stay-builder-copy{width:100%;max-width:none}
     .money-card{padding:18px 16px}
     .contrast{padding:18px 16px}
   }
 
   @media (max-width:620px){
-    .stay-builder-head{align-items:stretch}
+    .stay-builder-head{display:block}
     .platform-switch{width:100%}
     .platform-switch button{padding:10px 9px}
     .stay-results{grid-template-columns:1fr}

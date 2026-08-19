@@ -48,7 +48,7 @@
   .hero:before{right:-58px;top:-86px;width:245px;height:245px;border:2px solid var(--an-green-bright);transform:rotate(45deg)}
   .hero:after{right:55px;top:-58px;width:1px;height:245px;background:var(--an-green-bright);transform:rotate(45deg);transform-origin:center}
   .eyebrow{position:relative;z-index:1;font-family:var(--ui);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--an-green-bright);margin:0 0 8px}
-  .dek{position:relative;z-index:1;margin:0;max-width:700px;font-size:20px;line-height:1.55;color:#e5eaed}
+  .dek{position:relative;z-index:1;margin:0;font-size:20px;line-height:1.55;color:#e5eaed}
 
   .score-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-bottom:1px solid var(--line);background:#fff}
   .score{padding:18px 18px 16px;border-right:1px solid var(--line);min-width:0}
@@ -70,16 +70,16 @@
   .section-title:before{content:"";width:6px;height:34px;background:var(--an-green);flex:0 0 6px;margin-top:2px}
   h2{margin:0;font-family:var(--display);font-size:32px;font-weight:900;line-height:1.08;letter-spacing:-.012em;text-transform:uppercase}
   p{margin:0 0 15px;font-size:18px;line-height:1.62;color:#293640}
-  .lead{font-size:19px;line-height:1.58;max-width:700px}
+  .lead{font-size:19px;line-height:1.58}
   .note{font-family:var(--ui);font-size:15.5px;line-height:1.58;color:#69757d}
 
   .signal{width:100%;margin:21px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .signal-row{display:grid;grid-template-columns:minmax(105px,145px) minmax(120px,1fr) minmax(70px,92px);align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #edf0f2}
+  .signal-row{display:grid;grid-template-columns:minmax(105px,145px) minmax(0,1fr) 112px;align-items:center;gap:16px;padding:14px 8px 14px 0;border-bottom:1px solid #edf0f2}
   .signal-row:last-child{border-bottom:0}
   .signal-name{font-family:var(--ui);font-size:15px;font-weight:800}
   .track{height:9px;background:#e8efec;position:relative;overflow:hidden}
   .bar{height:100%;width:0;background:linear-gradient(90deg,var(--an-green-deep),var(--an-green-bright));transition:width .8s cubic-bezier(.2,.75,.25,1)}
-  .signal-value{text-align:right;font-family:var(--display);font-size:29px;font-weight:900;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .signal-value{min-width:0;text-align:right;white-space:nowrap;font-family:var(--display);font-size:29px;font-weight:900;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
 
   .toggle-wrap{margin:22px 0 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
   .toggle-label{font-family:var(--ui);font-size:14px;font-weight:800;letter-spacing:.055em;text-transform:uppercase;color:#59666f}
@@ -208,7 +208,7 @@
     .score:nth-child(3){grid-column:1/-1;border-right:0;border-top:1px solid var(--line)}
     section.content-section{padding:28px 18px 5px}
     h2{font-size:28px}
-    .signal-row{grid-template-columns:96px 1fr 66px;gap:9px}
+    .signal-row{grid-template-columns:96px minmax(0,1fr) 92px;gap:9px;padding-right:4px}
     .money-grid,.contrast-grid,.method-list{grid-template-columns:1fr}
     .money-card{padding:17px 15px 19px}
     .money-difference{font-size:45px}
@@ -461,6 +461,7 @@
           <li><strong>Currency:</strong> U.S. dollars</li>
         </ul>
         <div class="caveat">Prices reflect the accommodation inventory displayed at the time of collection and can change as availability and rates move. The two windows do not contain identical listing inventories, so the analysis compares the available market in each search period rather than a matched set of properties. The results show a price difference between the periods and do not attribute every change exclusively to the US Open.</div>
+        <p class="note" style="margin-top:14px">View the <a href="https://gauthambc.github.io/action-network-us-open-golf-accommodation/data.html" target="_blank" rel="noopener noreferrer" style="color:var(--an-green-deep);font-weight:800;text-decoration:underline;text-underline-offset:3px">full dataset and supporting analysis</a>.</p>
       </div>
     </section>
   </main>

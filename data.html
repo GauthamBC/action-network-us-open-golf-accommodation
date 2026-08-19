@@ -1,17 +1,18 @@
 
+
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>US Open Accommodation Data | Action Network</title>
+<title>US Open Accommodation Data | RotoGrinders</title>
 <style>
-:root{--navy:#101820;--navy2:#152630;--green:#00b67a;--green2:#00865b;--mint:#f2faf7;--ink:#101820;--muted:#586975;--line:#d9e2e5;--soft:#f6f8f8;--white:#fff;}
+:root{--navy:#0b0f14;--navy2:#111820;--green:#2879fe;--green2:#155fcf;--mint:#f3f7ff;--ink:#101820;--muted:#586975;--line:#d9e2e5;--soft:#f4f7fb;--white:#fff;}
 *{box-sizing:border-box}
-html{scrollbar-width:thin;scrollbar-color:var(--green) #e7efed}
+html{scrollbar-width:thin;scrollbar-color:var(--green) #edf3fb}
 html::-webkit-scrollbar{width:8px}
-html::-webkit-scrollbar-track{background:#e7efed}
+html::-webkit-scrollbar-track{background:#edf3fb}
 html::-webkit-scrollbar-thumb{background:var(--green);border-radius:0}
 body{margin:0;background:#fff;color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.52}
 button,input,select{font:inherit}
@@ -55,8 +56,8 @@ h3{font-size:17px;text-transform:uppercase;letter-spacing:.04em}
 .filters{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:8px;padding:12px;background:var(--soft);border:1px solid var(--line);margin-bottom:10px}
 .field label{display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:#66757e;margin-bottom:4px}
 .field input,.field select{width:100%;min-width:0;border:1px solid #bcc9cd;background:#fff;color:var(--ink);padding:9px 10px;font-family:Arial,Helvetica,sans-serif;font-size:13px;border-radius:0;outline:none}
-.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 2px rgba(0,182,122,.12)}
-.table-wrap{overflow:auto;border:1px solid var(--line);scrollbar-width:thin;scrollbar-color:var(--green) #e7efed}
+.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 2px rgba(40,121,254,.12)}
+.table-wrap{overflow:auto;border:1px solid var(--line);scrollbar-width:thin;scrollbar-color:var(--green) #edf3fb}
 .table-wrap::-webkit-scrollbar{height:7px;width:7px}
 .table-wrap::-webkit-scrollbar-thumb{background:var(--green)}
 table{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;min-width:720px}
@@ -64,13 +65,13 @@ thead th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:left
 th.sortable{cursor:pointer}
 th.sortable:hover{background:#1c303c}
 tbody td{border-bottom:1px solid #e4eaec;padding:10px 9px;vertical-align:top;color:#253741}
-tbody tr.data-row:hover{background:#f7fbfa}
+tbody tr.data-row:hover{background:#f7f9fd}
 .property{font-weight:800;color:var(--navy);max-width:220px}
 .money-cell{font-weight:800;white-space:nowrap}
-.platform-chip,.period-chip{display:inline-block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;background:#edf3f2;color:#41535d;white-space:nowrap}
-.period-chip.us{background:#e6f7f1;color:#006f4a}
+.platform-chip,.period-chip{display:inline-block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;background:#edf2f8;color:#41535d;white-space:nowrap}
+.period-chip.us{background:#eaf2ff;color:#155fcf}
 .details-btn{border:0;background:transparent;color:var(--green2);padding:0;font-size:11px;font-weight:900;text-transform:uppercase;cursor:pointer}
-.details-row{display:none;background:#f6f9f8}
+.details-row{display:none;background:#f6f8fc}
 .details-row.open{display:table-row}
 .details-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:14px;padding:5px 2px 4px}
 .detail-label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;font-weight:900;color:#6b7981;margin-bottom:3px}
@@ -103,7 +104,7 @@ tbody tr.data-row:hover{background:#f7fbfa}
 </head>
 <body>
 <div class="app">
-  <div class="brand"><div class="action">ACTION <span>NETWORK</span></div><div class="research">Data &amp; Research</div></div>
+  <div class="brand"><div class="action">ROTO<span>GRINDERS</span></div><div class="research">Data &amp; Research</div></div>
   <nav class="tabs" aria-label="Data views">
     <button class="tab active" data-tab="summary" type="button">Summary</button>
     <button class="tab" data-tab="raw" type="button">Raw Data</button>
@@ -165,7 +166,7 @@ tbody tr.data-row:hover{background:#f7fbfa}
 
     <div class="method">
       <h3>Methodology</h3>
-      <p>Action Network analyzed 2,073 Airbnb and Booking.com search listings for Queens and Manhattan. The comparison uses two 13-night, two-adult stays: Aug. 31–Sept. 13, 2026 and Sept. 30–Oct. 13, 2026. Prices are shown in U.S. dollars; per-night values divide the 13-night total by 13. The listing pool can differ between search windows, so the figures describe the observed price difference rather than attributing every change solely to the tournament.</p>
+      <p>RotoGrinders analyzed 2,073 Airbnb and Booking.com search listings for Queens and Manhattan. The comparison uses two 13-night, two-adult stays: Aug. 31–Sept. 13, 2026 and Sept. 30–Oct. 13, 2026. Prices are shown in U.S. dollars; per-night values divide the 13-night total by 13. The listing pool can differ between search windows, so the figures describe the observed price difference rather than attributing every change solely to the tournament.</p>
     </div>
   </section>
 

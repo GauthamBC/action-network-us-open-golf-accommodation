@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>US Open Accommodation Analysis | Action Network</title>
+<meta name="description" content="Action Network analysis of 2,073 Airbnb and Booking.com listings finds a clear US Open accommodation premium in Queens, with average prices 22% to 27% higher during the tournament-period stay window.">
+<style>
+  :root{
+    --an-navy:#101820;
+    --an-navy-2:#152630;
+    --an-green:#00b67a;
+    --an-green-bright:#00e09a;
+    --an-green-deep:#00865b;
+    --ink:#101820;
+    --muted:#5d6872;
+    --line:#dce3e7;
+    --soft:#f4f7f6;
+    --white:#ffffff;
+    --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Arial,sans-serif;
+    --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --ui:Inter,Arial,Helvetica,sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:#fff;scrollbar-width:thin;scrollbar-color:var(--an-green) #e9f0ed}
+  body{margin:0;width:100%;min-width:0;background:#fff;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;scrollbar-width:thin;scrollbar-color:var(--an-green) #e9f0ed}
+  html::-webkit-scrollbar,body::-webkit-scrollbar{width:8px}
+  html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:#e9f0ed}
+  html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:var(--an-green);border:1px solid #dce7e2;border-radius:8px}
+  html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:var(--an-green-deep)}
+  button{font:inherit}
+  a{color:inherit}
+
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:transparent;z-index:1000;pointer-events:none}
+  .progress>span{display:block;width:0;height:100%;background:var(--an-green);transition:width .08s linear}
+
+  .an-shell{width:100%;max-width:750px;margin:0 auto;background:var(--white);overflow:clip}
+  .brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:12px 22px;background:var(--an-navy);border-bottom:3px solid var(--an-green)}
+  .brandmark{font-family:var(--display);font-size:19px;font-weight:900;letter-spacing:.08em;color:#fff;text-transform:uppercase;line-height:1}
+  .brandmark i{color:var(--an-green);font-style:normal}
+  .brandtag{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.12em;color:#bdc7ce;text-transform:uppercase;white-space:nowrap}
+
+  /* Compact branded intro: the CMS/page supplies the main title. */
+  .hero{position:relative;width:100%;padding:28px 22px 27px;background:var(--an-navy-2);color:#fff;overflow:hidden}
+  .hero:before,.hero:after{content:"";position:absolute;pointer-events:none;opacity:.13}
+  .hero:before{right:-58px;top:-86px;width:245px;height:245px;border:2px solid var(--an-green-bright);transform:rotate(45deg)}
+  .hero:after{right:55px;top:-58px;width:1px;height:245px;background:var(--an-green-bright);transform:rotate(45deg);transform-origin:center}
+  .eyebrow{position:relative;z-index:1;font-family:var(--ui);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--an-green-bright);margin:0 0 8px}
+  .dek{position:relative;z-index:1;margin:0;max-width:700px;font-size:20px;line-height:1.55;color:#e5eaed}
+
+  .score-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-bottom:1px solid var(--line);background:#fff}
+  .score{padding:18px 18px 16px;border-right:1px solid var(--line);min-width:0}
+  .score:last-child{border-right:0}
+  .score .value{font-family:var(--display);font-size:40px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .score .label{margin-top:7px;font-family:var(--ui);font-size:12.5px;font-weight:800;line-height:1.35;letter-spacing:.04em;text-transform:uppercase;color:#4e5d67}
+
+  .jump{position:sticky;top:0;z-index:50;display:flex;gap:0;width:100%;overflow-x:auto;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);scrollbar-width:none;box-shadow:0 4px 13px rgba(16,24,32,.05)}
+  .jump::-webkit-scrollbar{display:none}
+  .jump a{flex:0 0 auto;padding:11px 15px;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.065em;text-transform:uppercase;text-decoration:none;color:#56636d;border-right:1px solid #edf0f2}
+  .jump a:hover,.jump a:focus{color:var(--an-green-deep);outline:none}
+  .jump a.is-active{color:var(--an-green-deep);box-shadow:inset 0 -3px 0 var(--an-green);background:#f5faf8}
+
+  /* Full-width iframe body. Sections use padding rather than a centered fixed-width shell. */
+  main{width:100%;max-width:none;margin:0;padding:0 0 34px}
+  section.content-section{width:100%;padding:32px 22px 7px;scroll-margin-top:48px}
+  section.content-section + section.content-section{border-top:1px solid #eef1f2}
+  .section-title{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+  .section-title:before{content:"";width:6px;height:34px;background:var(--an-green);flex:0 0 6px;margin-top:2px}
+  h2{margin:0;font-family:var(--display);font-size:32px;font-weight:900;line-height:1.08;letter-spacing:-.012em;text-transform:uppercase}
+  p{margin:0 0 15px;font-size:18px;line-height:1.62;color:#293640}
+  .lead{font-size:19px;line-height:1.58;max-width:700px}
+  .note{font-family:var(--ui);font-size:15.5px;line-height:1.58;color:#69757d}
+
+  .signal{width:100%;margin:21px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .signal-row{display:grid;grid-template-columns:minmax(105px,145px) minmax(120px,1fr) minmax(70px,92px);align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #edf0f2}
+  .signal-row:last-child{border-bottom:0}
+  .signal-name{font-family:var(--ui);font-size:15px;font-weight:800}
+  .track{height:9px;background:#e8efec;position:relative;overflow:hidden}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--an-green-deep),var(--an-green-bright));transition:width .8s cubic-bezier(.2,.75,.25,1)}
+  .signal-value{text-align:right;font-family:var(--display);font-size:29px;font-weight:900;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+
+  .toggle-wrap{margin:22px 0 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .toggle-label{font-family:var(--ui);font-size:14px;font-weight:800;letter-spacing:.055em;text-transform:uppercase;color:#59666f}
+  .toggle{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid #bac5ca;background:#fff}
+  .toggle button{border:0;border-right:1px solid #bac5ca;background:#fff;padding:10px 14px;cursor:pointer;font-family:var(--ui);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.035em;color:#50606a}
+  .toggle button:last-child{border-right:0}
+  .toggle button[aria-pressed="true"]{background:var(--an-navy);color:#fff}
+  .toggle button:focus-visible{outline:2px solid var(--an-green);outline-offset:2px}
+
+  .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:2px solid var(--an-navy);border-bottom:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;min-width:620px;font-family:var(--ui);font-size:15.5px}
+  thead th{padding:12px 10px;text-align:right;background:var(--soft);color:#56636d;font-size:12.5px;line-height:1.35;letter-spacing:.045em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:13px 10px;text-align:right;border-bottom:1px solid #e9edef;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  tbody td:first-child{text-align:left;font-weight:800;color:var(--ink)}
+  .delta{font-weight:900;color:var(--an-green-deep)}
+  .flat{color:#64717a}
+
+  #cost>p{font-size:19px;line-height:1.68;margin-bottom:17px}
+  .money-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;margin-top:18px}
+  .money-card{min-width:0;border:1px solid var(--line);border-left:6px solid var(--an-green);padding:18px 18px 20px;background:#fff}
+  .money-platform{font-family:var(--ui);font-size:14px;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#5d6c75}
+  .money-difference{display:inline-block;margin:9px 0 13px;padding:7px 11px 6px;background:#e8f8f1;border-bottom:3px solid var(--an-green);font-family:var(--display);font-size:49px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .money-difference-note{margin:-5px 0 13px;font-family:var(--ui);font-size:12.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#66747c}
+  .money-copy{font-family:var(--ui);font-size:17px;line-height:1.58;color:#34434d}
+  .money-copy strong{font-size:18px;font-weight:900;color:var(--an-navy);white-space:nowrap}
+
+  /* Compact Manhattan contrast: supporting context, intentionally smaller than the Queens 13-night feature. */
+  .manhattan-takeaway{width:100%;margin-top:18px;border-top:3px solid var(--an-navy);border-bottom:1px solid var(--line);background:#f6f8f8;padding:16px 17px 17px}
+  .manhattan-takeaway-title{margin:0 0 12px;font-family:var(--display);font-size:24px;font-weight:900;line-height:1.08;text-transform:uppercase;color:var(--an-navy)}
+  .manhattan-takeaway-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+  .manhattan-mini{min-width:0;padding:2px 18px 4px 0;border-right:1px solid #ced7db}
+  .manhattan-mini:last-child{padding-left:18px;padding-right:0;border-right:0}
+  .manhattan-mini-label{font-family:var(--ui);font-size:13px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#64717a}
+  .manhattan-mini-value{margin:4px 0 3px;font-family:var(--display);font-size:36px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .manhattan-mini-copy{font-family:var(--ui);font-size:16px;line-height:1.5;color:#46545d}
+  .manhattan-takeaway-note{margin:13px 0 0;padding-top:12px;border-top:1px solid #d9e0e3;font-family:var(--ui);font-size:16px;line-height:1.55;color:#34434d}
+
+  .contrast{width:100%;margin-top:18px;background:var(--soft);border-left:6px solid var(--an-navy);padding:18px 18px}
+  .contrast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:0}
+  .contrast-item{border-top:1px solid #ccd5d9;padding-top:11px;min-width:0}
+  .contrast-item .k{font-family:var(--ui);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6a777f}
+  .contrast-item .v{font-family:var(--display);font-size:39px;font-weight:900;line-height:1.05;margin-top:5px;font-variant-numeric:tabular-nums}
+  .contrast-item .s{font-family:var(--ui);font-size:14px;line-height:1.45;color:#59666f;margin-top:5px}
+
+  .method{width:100%;border-top:1px solid var(--line);margin-top:18px;padding-top:18px}
+  .method-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin:0;padding:0;list-style:none;font-family:var(--ui);font-size:16px;line-height:1.55;color:#45535d}
+  .method-list li{padding:9px 0;border-bottom:1px solid #e9edef}
+  .method-list strong{color:var(--ink)}
+  .caveat{margin-top:14px;padding:15px 16px;background:#f7f9f8;border-left:3px solid #aab6bc;font-family:var(--ui);font-size:15px;line-height:1.62;color:#5f6c75}
+
+  /* Motion starts only when an element enters the viewport. */
+  [data-animate-number],[data-animate-range]{visibility:hidden}
+  [data-animate-number].is-counting,[data-animate-number].is-done,[data-animate-range].is-counting,[data-animate-range].is-done{visibility:visible}
+
+
+
+  /* Queens stay explorer */
+  .stay-builder{width:100%;margin-top:18px;border:1px solid #cfe8de;border-top:5px solid var(--an-green);background:#f2fbf7;padding:16px 16px 0}
+  .stay-builder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding:0 0 12px}
+  .stay-builder-copy{max-width:510px}
+  .stay-builder-kicker{display:inline-block;font-family:var(--ui);font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--an-green-deep);padding:5px 8px;margin-bottom:7px}
+  .stay-builder h3{margin:0;font-family:var(--display);font-size:30px;font-weight:900;line-height:1.08;text-transform:uppercase;letter-spacing:-.008em;color:var(--an-navy)}
+  .stay-builder-sub{margin:6px 0 0;font-family:var(--ui);font-size:15.5px;line-height:1.55;color:#4f6069}
+  .platform-switch{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid #bac5ca;background:#fff;flex:0 0 auto}
+  .platform-switch button{border:0;border-right:1px solid #bac5ca;background:#fff;padding:11px 14px;cursor:pointer;font-family:var(--ui);font-size:13px;font-weight:900;letter-spacing:.035em;text-transform:uppercase;color:#50606a}
+  .platform-switch button:last-child{border-right:0}
+  .platform-switch button[aria-pressed="true"]{background:var(--an-navy);color:#fff}
+  .platform-switch button:focus-visible{outline:2px solid var(--an-green);outline-offset:2px}
+
+  .stay-control{border-top:1px solid #cfe1da;border-bottom:1px solid #cfe1da;padding:14px 0 13px}
+  .stay-control-top{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:10px}
+  .stay-control-label{font-family:var(--ui);font-size:13px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#53616b}
+  .stay-night-readout{font-family:var(--display);font-size:33px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .stay-range-wrap{position:relative;padding:7px 0 1px}
+  .stay-range{--fill:100%;display:block;width:100%;height:24px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
+  .stay-range::-webkit-slider-runnable-track{height:8px;background:linear-gradient(90deg,var(--an-green) 0 var(--fill),#dfe8e4 var(--fill) 100%);border-radius:999px}
+  .stay-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-6px;border-radius:50%;background:var(--an-green-bright);border:3px solid #fff;box-shadow:0 0 0 2px var(--an-navy)}
+  .stay-range::-moz-range-track{height:8px;background:#dfe8e4;border-radius:999px}
+  .stay-range::-moz-range-progress{height:8px;background:var(--an-green);border-radius:999px}
+  .stay-range::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--an-green-bright);border:3px solid #fff;box-shadow:0 0 0 2px var(--an-navy)}
+  .stay-range:focus-visible{outline:2px solid var(--an-green);outline-offset:4px}
+  .stay-range-scale{display:flex;justify-content:space-between;margin-top:3px;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#77828a}
+
+  .stay-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+  .stay-result{min-width:0;padding:15px 18px 14px 0;border-right:1px solid #cfe1da}
+  .stay-result:nth-child(2){padding-left:18px}
+  .stay-result:last-child{border-right:0;padding-left:18px;padding-right:0}
+  .stay-result-label{font-family:var(--ui);font-size:12px;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#65727b}
+  .stay-result-value{margin:5px 0 4px;font-family:var(--display);font-size:42px;font-weight:900;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .stay-result.premium{background:#e9f7f1;padding-right:12px}
+  .stay-result.premium .stay-result-value{color:var(--an-green-deep)}
+  .stay-result-meta{font-family:var(--ui);font-size:14.5px;line-height:1.5;color:#66737c}
+  .stay-premium-pct{display:inline-block;margin-left:5px;color:var(--an-green-deep);font-weight:900}
+  .stay-builder-note{margin:0;padding:12px 0 14px;border-top:1px solid #d8e9e2;font-family:var(--ui);font-size:14.5px;line-height:1.6;color:#617078}
+
+  @media (max-width:750px){
+    .an-shell{max-width:100%}
+    .stay-builder-head{gap:12px}
+    .stay-builder-copy{max-width:500px}
+    .money-card{padding:18px 16px}
+    .contrast{padding:18px 16px}
+  }
+
+  @media (max-width:620px){
+    .stay-builder-head{align-items:stretch}
+    .platform-switch{width:100%}
+    .platform-switch button{padding:10px 9px}
+    .stay-results{grid-template-columns:1fr}
+    .stay-result,.stay-result:nth-child(2),.stay-result:last-child{padding:15px 0;border-right:0;border-bottom:1px solid #cfe1da}
+    .stay-result.premium{padding:15px 12px;background:#e9f7f1}
+    .stay-result:last-child{border-bottom:0}
+    .stay-result-value{font-size:36px}
+  }
+
+  @media (max-width:620px){
+    .brandtag{display:none}
+    .brandbar{padding-left:18px;padding-right:18px}
+    .hero{padding:23px 18px 22px}
+    .hero:before{right:-112px}
+    .dek{font-size:16px}
+    .score-strip{grid-template-columns:1fr 1fr}
+    .score{padding:16px 18px 14px}
+    .score:nth-child(2){border-right:0}
+    .score:nth-child(3){grid-column:1/-1;border-right:0;border-top:1px solid var(--line)}
+    section.content-section{padding:28px 18px 5px}
+    h2{font-size:28px}
+    .signal-row{grid-template-columns:96px 1fr 66px;gap:9px}
+    .money-grid,.contrast-grid,.method-list{grid-template-columns:1fr}
+    .money-card{padding:17px 15px 19px}
+    .money-difference{font-size:45px}
+    .money-copy{font-size:16.5px}
+    .money-copy strong{font-size:17.5px}
+    .contrast-grid{gap:14px}
+    .manhattan-takeaway-grid{grid-template-columns:1fr}
+    .manhattan-mini,.manhattan-mini:last-child{padding:8px 0 12px;border-right:0;border-bottom:1px solid #d9e0e3}
+    .manhattan-mini:last-child{padding-top:12px;border-bottom:0}
+    .manhattan-mini-value{font-size:34px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .bar{transition:none}
+    [data-animate-number],[data-animate-range]{visibility:visible}
+  }
+
+  @media print{
+    .progress,.jump,.toggle{display:none!important}
+    .hero{background:#fff;color:#000;border-top:5px solid var(--an-green);border-bottom:1px solid #bbb}
+    .dek{color:#333}
+    .eyebrow{color:#007a53}
+    .brandbar{background:#fff;border-top:1px solid #bbb}
+    .brandmark{color:#000}
+    [data-animate-number],[data-animate-range]{visibility:visible!important}
+    .bar{width:var(--print-width,100%)!important}
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+<div class="an-shell">
+  <header class="brandbar" aria-label="Action Network Data and Research">
+    <div class="brandmark">ACTION <i>NETWORK</i></div>
+    <div class="brandtag">Data &amp; Research</div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="eyebrow">2026 US Open Accommodation Analysis</div>
+    <p class="dek">Action Network analyzed 2,073 Airbnb and Booking.com listings in Queens and Manhattan. In Queens, average accommodation prices were 22% to 27% higher for a 13-night tournament-period stay than for the same-length stay one month later.</p>
+  </section>
+
+  <div class="score-strip" aria-label="Top findings">
+    <div class="score reveal-group">
+      <div class="value"><span data-animate-number data-value="26.9" data-prefix="+" data-suffix="%" data-decimals="1">+26.9%</span></div>
+      <div class="label">Queens Airbnb</div>
+    </div>
+    <div class="score reveal-group">
+      <div class="value"><span data-animate-number data-value="21.8" data-prefix="+" data-suffix="%" data-decimals="1">+21.8%</span></div>
+      <div class="label">Queens Booking.com</div>
+    </div>
+    <div class="score reveal-group">
+      <div class="value"><span data-animate-range data-low="646" data-high="723" data-prefix="$">$646–$723</span></div>
+      <div class="label">Extra Across 13 Nights</div>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Page sections">
+    <a href="#queens">Queens</a>
+    <a href="#cost">13-Night Cost</a>
+    <a href="#manhattan">Manhattan</a>
+    <a href="#methodology">Methodology</a>
+  </nav>
+
+  <main>
+    <section class="content-section" id="queens">
+      <div class="section-title"><h2>The Premium Is Clearest in Queens</h2></div>
+      <p class="lead">Both accommodation platforms point in the same direction near the tournament: Queens prices were materially higher during the Aug. 31 to Sept. 13 search window than during Sept. 30 to Oct. 13.</p>
+
+      <div class="signal reveal-group" aria-label="Queens price increases">
+        <div class="signal-row">
+          <div class="signal-name">Airbnb</div>
+          <div class="track"><div class="bar" data-width="100"></div></div>
+          <div class="signal-value"><span data-animate-number data-value="26.9" data-prefix="+" data-suffix="%" data-decimals="1">+26.9%</span></div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-name">Booking.com</div>
+          <div class="track"><div class="bar" data-width="81"></div></div>
+          <div class="signal-value"><span data-animate-number data-value="21.8" data-prefix="+" data-suffix="%" data-decimals="1">+21.8%</span></div>
+        </div>
+      </div>
+
+      <div class="toggle-wrap">
+        <div class="toggle-label">Compare nightly prices</div>
+        <div class="toggle" role="group" aria-label="Choose price measure">
+          <button type="button" id="avgBtn" aria-pressed="true">Average</button>
+          <button type="button" id="medianBtn" aria-pressed="false">Median</button>
+        </div>
+      </div>
+
+      <div class="table-scroll" tabindex="0" aria-label="Queens accommodation price comparison">
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>During US Open Period</th>
+              <th>One Month Later</th>
+              <th>Difference</th>
+            </tr>
+          </thead>
+          <tbody id="queensTable"></tbody>
+        </table>
+      </div>
+      <p class="note" id="measureNote" aria-live="polite">Average displayed prices. Rounded to the nearest dollar.</p>
+
+
+      <div class="stay-builder" id="queensStayBuilder" aria-label="US Open stay cost explorer">
+        <div class="stay-builder-head">
+          <div class="stay-builder-copy">
+            <div class="stay-builder-kicker">Interactive Cost Explorer</div>
+            <h3>See How Much Extra Your US Open Stay in Queens Could Cost</h3>
+            <p class="stay-builder-sub">Choose your platform and length of stay to compare the estimated cost during the US Open period with the same stay one month later.</p>
+          </div>
+          <div class="platform-switch" role="group" aria-label="Choose accommodation platform">
+            <button type="button" id="stayAirbnb" aria-pressed="true">Airbnb</button>
+            <button type="button" id="stayBooking" aria-pressed="false">Booking.com</button>
+          </div>
+        </div>
+
+        <div class="stay-control">
+          <div class="stay-control-top">
+            <div class="stay-control-label">Length of stay</div>
+            <div class="stay-night-readout" id="stayNightReadout" aria-live="polite">13 nights</div>
+          </div>
+          <div class="stay-range-wrap">
+            <input class="stay-range" id="stayRange" type="range" min="1" max="13" step="1" value="13" aria-label="Length of stay from 1 to 13 nights">
+            <div class="stay-range-scale"><span>1 night</span><span>13 nights</span></div>
+          </div>
+        </div>
+
+        <div class="stay-results" aria-live="polite">
+          <div class="stay-result">
+            <div class="stay-result-label">During US Open Period</div>
+            <div class="stay-result-value" id="stayDuring">$3,052</div>
+            <div class="stay-result-meta" id="stayDuringMeta">About $235 per night</div>
+          </div>
+          <div class="stay-result">
+            <div class="stay-result-label">One Month Later</div>
+            <div class="stay-result-value" id="stayLater">$2,406</div>
+            <div class="stay-result-meta" id="stayLaterMeta">About $185 per night</div>
+          </div>
+          <div class="stay-result premium">
+            <div class="stay-result-label">Estimated Premium</div>
+            <div class="stay-result-value" id="stayPremium">+$646</div>
+            <div class="stay-result-meta">During the tournament period <span class="stay-premium-pct" id="stayPremiumPct">+26.9%</span></div>
+          </div>
+        </div>
+        <p class="stay-builder-note">13 nights reflects the full Aug. 31–Sept. 13 tournament-period window analyzed. Shorter stays are illustrative estimates derived from the average nightly rates observed in that 13-night search.</p>
+      </div>
+    </section>
+
+    <section class="content-section" id="cost">
+      <div class="section-title"><h2>What That Means Across 13 Nights</h2></div>
+      <p>The difference becomes more tangible across the full stay window. Compared with the later period, the average Queens stay was about $650 to $720 more expensive during the tournament-period search.</p>
+
+      <div class="money-grid reveal-group">
+        <article class="money-card">
+          <div class="money-platform">Airbnb</div>
+          <div class="money-difference"><span data-animate-number data-value="646" data-prefix="+$" data-decimals="0" data-comma="true">+$646</span></div>
+          <div class="money-difference-note">Extra across 13 nights</div>
+          <div class="money-copy"><strong>$3,052</strong> during the US Open period versus <strong>$2,406</strong> one month later.</div>
+        </article>
+        <article class="money-card">
+          <div class="money-platform">Booking.com</div>
+          <div class="money-difference"><span data-animate-number data-value="723" data-prefix="+$" data-decimals="0" data-comma="true">+$723</span></div>
+          <div class="money-difference-note">Extra across 13 nights</div>
+          <div class="money-copy"><strong>$4,047</strong> during the US Open period versus <strong>$3,324</strong> one month later.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section" id="manhattan">
+      <div class="section-title"><h2>Manhattan Tells a Less Consistent Story</h2></div>
+      <p>Manhattan Airbnb prices were also higher during the tournament-period window, but Booking.com did not show the same pattern. That contrast makes Queens the clearest location-level finding in the data.</p>
+
+      <div class="stay-builder" id="manhattanStayBuilder" aria-label="Manhattan US Open stay cost explorer">
+        <div class="stay-builder-head">
+          <div class="stay-builder-copy">
+            <div class="stay-builder-kicker">Interactive Cost Explorer</div>
+            <h3>See How Much Extra Your US Open Stay in Manhattan Could Cost</h3>
+            <p class="stay-builder-sub">Choose your platform and length of stay to compare the estimated cost during the US Open period with the same stay one month later.</p>
+          </div>
+          <div class="platform-switch" role="group" aria-label="Choose Manhattan accommodation platform">
+            <button type="button" id="mStayAirbnb" aria-pressed="true">Airbnb</button>
+            <button type="button" id="mStayBooking" aria-pressed="false">Booking.com</button>
+          </div>
+        </div>
+
+        <div class="stay-control">
+          <div class="stay-control-top">
+            <div class="stay-control-label">Length of stay</div>
+            <div class="stay-night-readout" id="mStayNightReadout" aria-live="polite">13 nights</div>
+          </div>
+          <div class="stay-range-wrap">
+            <input class="stay-range" id="mStayRange" type="range" min="1" max="13" step="1" value="13" aria-label="Length of Manhattan stay from 1 to 13 nights">
+            <div class="stay-range-scale"><span>1 night</span><span>13 nights</span></div>
+          </div>
+        </div>
+
+        <div class="stay-results" aria-live="polite">
+          <div class="stay-result">
+            <div class="stay-result-label">During US Open Period</div>
+            <div class="stay-result-value" id="mStayDuring">$4,206</div>
+            <div class="stay-result-meta" id="mStayDuringMeta">About $324 per night</div>
+          </div>
+          <div class="stay-result">
+            <div class="stay-result-label">One Month Later</div>
+            <div class="stay-result-value" id="mStayLater">$3,487</div>
+            <div class="stay-result-meta" id="mStayLaterMeta">About $268 per night</div>
+          </div>
+          <div class="stay-result premium">
+            <div class="stay-result-label">Estimated Premium</div>
+            <div class="stay-result-value" id="mStayPremium">+$719</div>
+            <div class="stay-result-meta">During the tournament period <span class="stay-premium-pct" id="mStayPremiumPct">+20.6%</span></div>
+          </div>
+        </div>
+        <p class="stay-builder-note">13 nights reflects the full Aug. 31–Sept. 13 tournament-period window analyzed. Shorter stays are illustrative estimates derived from the average nightly rates observed in that 13-night search.</p>
+      </div>
+      <div class="manhattan-takeaway reveal-group" aria-label="Manhattan 13-night contrast">
+        <h3 class="manhattan-takeaway-title">The 13-Night Contrast</h3>
+        <div class="manhattan-takeaway-grid">
+          <div class="manhattan-mini">
+            <div class="manhattan-mini-label">Airbnb</div>
+            <div class="manhattan-mini-value"><span data-animate-number data-value="719" data-prefix="+$" data-decimals="0" data-comma="true">+$719</span></div>
+            <div class="manhattan-mini-copy">More during the tournament-period window.</div>
+          </div>
+          <div class="manhattan-mini">
+            <div class="manhattan-mini-label">Booking.com</div>
+            <div class="manhattan-mini-value"><span data-animate-number data-value="14" data-prefix="+$" data-decimals="0" data-comma="true">+$14</span></div>
+            <div class="manhattan-mini-copy">Effectively unchanged across the 13-night comparison.</div>
+          </div>
+        </div>
+        <p class="manhattan-takeaway-note">Airbnb showed a sizable Manhattan premium, while Booking.com was effectively flat. That split is why Queens remains the more consistent location-level finding.</p>
+      </div>
+    </section>
+
+    <section class="content-section" id="methodology">
+      <div class="section-title"><h2>Methodology</h2></div>
+      <p>Action Network compared displayed accommodation prices on Airbnb and Booking.com for Queens and Manhattan across two equal 13-night stay windows.</p>
+      <div class="method">
+        <ul class="method-list">
+          <li><strong>Tournament-period stay:</strong> Aug. 31–Sept. 13, 2026</li>
+          <li><strong>Comparison stay:</strong> Sept. 30–Oct. 13, 2026</li>
+          <li><strong>Guests:</strong> 2 adults</li>
+          <li><strong>Listings analyzed:</strong> 2,073</li>
+          <li><strong>Platforms:</strong> Airbnb and Booking.com</li>
+          <li><strong>Locations:</strong> Queens and Manhattan</li>
+          <li><strong>Collection date:</strong> Aug. 19, 2026</li>
+          <li><strong>Currency:</strong> U.S. dollars</li>
+        </ul>
+        <div class="caveat">Prices reflect the accommodation inventory displayed at the time of collection and can change as availability and rates move. The two windows do not contain identical listing inventories, so the analysis compares the available market in each search period rather than a matched set of properties. The results show a price difference between the periods and do not attribute every change exclusively to the US Open.</div>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<script>
+(function(){
+  const reducedMotion=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const data={
+    average:[
+      {platform:'Airbnb',during:235,later:185,delta:26.9},
+      {platform:'Booking.com',during:311,later:256,delta:21.8}
+    ],
+    median:[
+      {platform:'Airbnb',during:203,later:169,delta:20.0},
+      {platform:'Booking.com',during:293,later:249,delta:18.0}
+    ]
+  };
+
+  const tbody=document.getElementById('queensTable');
+  const avgBtn=document.getElementById('avgBtn');
+  const medianBtn=document.getElementById('medianBtn');
+  const note=document.getElementById('measureNote');
+
+  function easeOutCubic(t){return 1-Math.pow(1-t,3);}
+
+  function formatNumber(value,decimals,comma){
+    return Number(value).toLocaleString('en-US',{
+      minimumFractionDigits:decimals,
+      maximumFractionDigits:decimals,
+      useGrouping:comma
+    });
+  }
+
+  function animateSingle(el){
+    if(!el || el.dataset.animated==='true') return;
+    el.dataset.animated='true';
+    el.classList.add('is-counting');
+    const target=Number(el.dataset.value||0);
+    const decimals=Number(el.dataset.decimals||0);
+    const prefix=el.dataset.prefix||'';
+    const suffix=el.dataset.suffix||'';
+    const comma=el.dataset.comma==='true';
+    const duration=reducedMotion?0:700;
+
+    if(duration===0){
+      el.textContent=prefix+formatNumber(target,decimals,comma)+suffix;
+      el.classList.remove('is-counting');
+      el.classList.add('is-done');
+      return;
+    }
+
+    const start=performance.now();
+    function frame(now){
+      const p=Math.min(1,(now-start)/duration);
+      const current=target*easeOutCubic(p);
+      el.textContent=prefix+formatNumber(current,decimals,comma)+suffix;
+      if(p<1){requestAnimationFrame(frame);}else{
+        el.textContent=prefix+formatNumber(target,decimals,comma)+suffix;
+        el.classList.remove('is-counting');
+        el.classList.add('is-done');
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function animateRange(el){
+    if(!el || el.dataset.animated==='true') return;
+    el.dataset.animated='true';
+    el.classList.add('is-counting');
+    const low=Number(el.dataset.low||0);
+    const high=Number(el.dataset.high||0);
+    const prefix=el.dataset.prefix||'';
+    const duration=reducedMotion?0:760;
+    const start=performance.now();
+
+    function paint(p){
+      const e=easeOutCubic(p);
+      const a=Math.round(low*e).toLocaleString('en-US');
+      const b=Math.round(high*e).toLocaleString('en-US');
+      el.textContent=prefix+a+'–'+prefix+b;
+    }
+    if(duration===0){paint(1);el.classList.remove('is-counting');el.classList.add('is-done');return;}
+    function frame(now){
+      const p=Math.min(1,(now-start)/duration);
+      paint(p);
+      if(p<1){requestAnimationFrame(frame);}else{el.classList.remove('is-counting');el.classList.add('is-done');}
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function animateGroup(group){
+    group.querySelectorAll('[data-animate-number]').forEach(animateSingle);
+    group.querySelectorAll('[data-animate-range]').forEach(animateRange);
+    group.querySelectorAll('.bar').forEach(bar=>{
+      const width=(bar.dataset.width||0)+'%';
+      if(reducedMotion){bar.style.width=width;return;}
+      requestAnimationFrame(()=>{bar.style.width=width;});
+    });
+  }
+
+  function setupRevealAnimations(){
+    const groups=[...document.querySelectorAll('.reveal-group')];
+    if(reducedMotion || !('IntersectionObserver' in window)){
+      groups.forEach(animateGroup);
+      return;
+    }
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          animateGroup(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.28,rootMargin:'0px 0px -5% 0px'});
+    groups.forEach(group=>observer.observe(group));
+  }
+
+  function tableMarkup(mode){
+    return data[mode].map(r=>`
+      <tr>
+        <td>${r.platform}</td>
+        <td>$${r.during.toLocaleString('en-US')}/night</td>
+        <td>$${r.later.toLocaleString('en-US')}/night</td>
+        <td class="delta">+${r.delta.toFixed(1)}%</td>
+      </tr>`).join('');
+  }
+
+  function render(mode){
+    tbody.innerHTML=tableMarkup(mode);
+    const avg=mode==='average';
+    avgBtn.setAttribute('aria-pressed',avg?'true':'false');
+    medianBtn.setAttribute('aria-pressed',avg?'false':'true');
+    note.textContent=avg
+      ?'Average displayed prices. Rounded to the nearest dollar.'
+      :'Median displayed prices. The Queens premium remains visible after reducing the influence of unusually high-priced listings.';
+    notifyHeight();
+  }
+
+  avgBtn.addEventListener('click',()=>render('average'));
+  medianBtn.addEventListener('click',()=>render('median'));
+  render('average');
+
+
+
+  function setupStayExplorer(config){
+    const data=config.data;
+    let platform='airbnb';
+    const range=document.getElementById(config.rangeId);
+    const airbnbBtn=document.getElementById(config.airbnbId);
+    const bookingBtn=document.getElementById(config.bookingId);
+    const nightReadout=document.getElementById(config.nightReadoutId);
+    const duringEl=document.getElementById(config.duringId);
+    const laterEl=document.getElementById(config.laterId);
+    const premiumEl=document.getElementById(config.premiumId);
+    const premiumPctEl=document.getElementById(config.premiumPctId);
+    const duringMetaEl=document.getElementById(config.duringMetaId);
+    const laterMetaEl=document.getElementById(config.laterMetaId);
+    const builder=document.getElementById(config.builderId);
+
+    if(!range || !builder) return;
+
+    function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+    function signedMoney(n){
+      const rounded=Math.round(n);
+      return (rounded<0?'-$':'+$')+Math.abs(rounded).toLocaleString('en-US');
+    }
+
+    function animateTextNumber(el,from,to,formatter){
+      if(!el){return;}
+      if(reducedMotion){el.textContent=formatter(to);return;}
+      const start=performance.now();
+      const duration=360;
+      function frame(now){
+        const p=Math.min(1,(now-start)/duration);
+        const value=from+(to-from)*easeOutCubic(p);
+        el.textContent=formatter(value);
+        if(p<1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function currentDisplayedNumber(el){
+      if(!el) return 0;
+      const txt=(el.textContent||'').trim();
+      const sign=txt.startsWith('-')?-1:1;
+      return sign*(Number(txt.replace(/[^0-9.]/g,''))||0);
+    }
+
+    function render(animate=true){
+      const nights=Number(range.value);
+      const d=data[platform];
+      const during=nights===13?d.duringTotal13:d.duringNight*nights;
+      const later=nights===13?d.laterTotal13:d.laterNight*nights;
+      const premium=during-later;
+      const fill=((nights-1)/12)*100;
+      range.style.setProperty('--fill',fill+'%');
+      nightReadout.textContent=nights+' '+(nights===1?'night':'nights');
+      airbnbBtn.setAttribute('aria-pressed',platform==='airbnb'?'true':'false');
+      bookingBtn.setAttribute('aria-pressed',platform==='booking'?'true':'false');
+      duringMetaEl.textContent='About $'+Math.round(d.duringNight).toLocaleString('en-US')+' per night';
+      laterMetaEl.textContent='About $'+Math.round(d.laterNight).toLocaleString('en-US')+' per night';
+      premiumPctEl.textContent=(d.pct>=0?'+':'')+d.pct.toFixed(1)+'%';
+
+      if(animate){
+        animateTextNumber(duringEl,currentDisplayedNumber(duringEl),during,money);
+        animateTextNumber(laterEl,currentDisplayedNumber(laterEl),later,money);
+        animateTextNumber(premiumEl,currentDisplayedNumber(premiumEl),premium,signedMoney);
+      }else{
+        duringEl.textContent=money(during);
+        laterEl.textContent=money(later);
+        premiumEl.textContent=signedMoney(premium);
+      }
+      notifyHeight();
+    }
+
+    range.addEventListener('input',()=>render(true));
+    airbnbBtn.addEventListener('click',()=>{platform='airbnb';render(true);});
+    bookingBtn.addEventListener('click',()=>{platform='booking';render(true);});
+
+    if(reducedMotion || !('IntersectionObserver' in window)){
+      render(false);
+    }else{
+      duringEl.textContent='$0';
+      laterEl.textContent='$0';
+      premiumEl.textContent='+$0';
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            render(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.3,rootMargin:'0px 0px -5% 0px'});
+      observer.observe(builder);
+    }
+  }
+
+  setupStayExplorer({
+    builderId:'queensStayBuilder',rangeId:'stayRange',airbnbId:'stayAirbnb',bookingId:'stayBooking',
+    nightReadoutId:'stayNightReadout',duringId:'stayDuring',laterId:'stayLater',premiumId:'stayPremium',
+    premiumPctId:'stayPremiumPct',duringMetaId:'stayDuringMeta',laterMetaId:'stayLaterMeta',
+    data:{
+      airbnb:{duringTotal13:3051.941818181818,laterTotal13:2405.536231884058,duringNight:3051.941818181818/13,laterNight:2405.536231884058/13,pct:26.87157972},
+      booking:{duringTotal13:4046.7048960222223,laterTotal13:3323.5789495835616,duringNight:4046.7048960222223/13,laterNight:3323.5789495835616/13,pct:21.75744754}
+    }
+  });
+
+  setupStayExplorer({
+    builderId:'manhattanStayBuilder',rangeId:'mStayRange',airbnbId:'mStayAirbnb',bookingId:'mStayBooking',
+    nightReadoutId:'mStayNightReadout',duringId:'mStayDuring',laterId:'mStayLater',premiumId:'mStayPremium',
+    premiumPctId:'mStayPremiumPct',duringMetaId:'mStayDuringMeta',laterMetaId:'mStayLaterMeta',
+    data:{
+      airbnb:{duringTotal13:4206.076086956522,laterTotal13:3486.9202898550725,duringNight:4206.076086956522/13,laterNight:3486.9202898550725/13,pct:20.62438305},
+      booking:{duringTotal13:7888.321689702702,laterTotal13:7874.1832865835095,duringNight:7888.321689702702/13,laterNight:7874.1832865835095/13,pct:0.1795539006}
+    }
+  });
+
+  function updateProgress(){
+    const root=document.documentElement;
+    const max=root.scrollHeight-root.clientHeight;
+    const pct=max>0?(root.scrollTop/max)*100:0;
+    document.getElementById('progressBar').style.width=pct+'%';
+  }
+  document.addEventListener('scroll',updateProgress,{passive:true});
+  updateProgress();
+
+  const jumpLinks=[...document.querySelectorAll('.jump a')];
+  const sectionMap=jumpLinks.map(link=>({link,section:document.querySelector(link.getAttribute('href'))})).filter(x=>x.section);
+  function setActiveNav(){
+    const y=window.scrollY+90;
+    let active=sectionMap[0];
+    sectionMap.forEach(item=>{if(item.section.offsetTop<=y) active=item;});
+    jumpLinks.forEach(link=>link.classList.remove('is-active'));
+    if(active) active.link.classList.add('is-active');
+  }
+  document.addEventListener('scroll',setActiveNav,{passive:true});
+  setActiveNav();
+
+  function notifyHeight(){
+    try{
+      parent.postMessage({type:'action-network-iframe-resize',height:document.documentElement.scrollHeight},'*');
+    }catch(e){}
+  }
+
+  window.addEventListener('load',()=>{
+    setupRevealAnimations();
+    notifyHeight();
+  });
+  window.addEventListener('resize',notifyHeight);
+  if('ResizeObserver' in window){new ResizeObserver(notifyHeight).observe(document.body);}
+})();
+</script>
+</body>
+</html>

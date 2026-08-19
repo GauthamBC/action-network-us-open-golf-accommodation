@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>US Open Accommodation Analysis | Action Network</title>
-<meta name="description" content="Action Network analysis of 2,073 Airbnb and Booking.com listings finds a clear US Open accommodation premium in Queens, with average prices 22% to 27% higher during the tournament-period stay window.">
+<title>US Open Accommodation Analysis | RotoGrinders</title>
+<meta name="description" content="RotoGrinders analysis of 2,073 Airbnb and Booking.com listings finds a clear US Open accommodation premium in Queens, with average prices 22% to 27% higher during the tournament-period stay window.">
 <style>
   :root{
-    --an-navy:#101820;
-    --an-navy-2:#152630;
-    --an-green:#00b67a;
-    --an-green-bright:#00e09a;
-    --an-green-deep:#00865b;
+    --an-navy:#0b0f14;
+    --an-navy-2:#111820;
+    --an-green:#2879fe;
+    --an-green-bright:#4b91ff;
+    --an-green-deep:#155fcf;
     --ink:#101820;
     --muted:#5d6872;
     --line:#dce3e7;
-    --soft:#f4f7f6;
+    --soft:#f4f7fb;
     --white:#ffffff;
     --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Arial,sans-serif;
     --body:"Source Serif 4",Georgia,"Times New Roman",serif;
@@ -24,11 +24,11 @@
   }
 
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;background:#fff;scrollbar-width:thin;scrollbar-color:var(--an-green) #e9f0ed}
-  body{margin:0;width:100%;min-width:0;background:#fff;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;scrollbar-width:thin;scrollbar-color:var(--an-green) #e9f0ed}
+  html{scroll-behavior:smooth;background:#fff;scrollbar-width:thin;scrollbar-color:var(--an-green) #edf3fb}
+  body{margin:0;width:100%;min-width:0;background:#fff;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;scrollbar-width:thin;scrollbar-color:var(--an-green) #edf3fb}
   html::-webkit-scrollbar,body::-webkit-scrollbar{width:8px}
-  html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:#e9f0ed}
-  html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:var(--an-green);border:1px solid #dce7e2;border-radius:8px}
+  html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:#edf3fb}
+  html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:var(--an-green);border:1px solid #d9e5f5;border-radius:8px}
   html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:var(--an-green-deep)}
   button{font:inherit}
   a{color:inherit}
@@ -36,7 +36,7 @@
   .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:transparent;z-index:1000;pointer-events:none}
   .progress>span{display:block;width:0;height:100%;background:var(--an-green);transition:width .08s linear}
 
-  .an-shell{width:100%;max-width:900px;margin:0 auto;background:var(--white);overflow:clip}
+  .an-shell{width:100%;max-width:none;margin:0;background:var(--white);overflow:clip}
   .brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:12px 22px;background:var(--an-navy);border-bottom:3px solid var(--an-green)}
   .brandmark{font-family:var(--display);font-size:19px;font-weight:900;letter-spacing:.08em;color:#fff;text-transform:uppercase;line-height:1}
   .brandmark i{color:var(--an-green);font-style:normal}
@@ -60,7 +60,7 @@
   .jump::-webkit-scrollbar{display:none}
   .jump button{flex:0 0 auto;border:0;border-right:1px solid #edf0f2;background:transparent;padding:11px 15px;cursor:pointer;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.065em;text-transform:uppercase;color:#56636d;white-space:nowrap}
   .jump button:hover,.jump button:focus{color:var(--an-green-deep);outline:none}
-  .jump button.is-active{color:var(--an-green-deep);box-shadow:inset 0 -3px 0 var(--an-green);background:#f5faf8}
+  .jump button.is-active{color:var(--an-green-deep);box-shadow:inset 0 -3px 0 var(--an-green);background:#f3f7ff}
 
   /* Full-width iframe body. Sections use padding rather than a centered fixed-width shell. */
   main{width:100%;max-width:none;margin:0;padding:0 0 34px}
@@ -77,7 +77,7 @@
   .signal-row{display:grid;grid-template-columns:minmax(105px,145px) minmax(0,1fr) 112px;align-items:center;gap:16px;padding:14px 8px 14px 0;border-bottom:1px solid #edf0f2}
   .signal-row:last-child{border-bottom:0}
   .signal-name{font-family:var(--ui);font-size:15px;font-weight:800}
-  .track{height:9px;background:#e8efec;position:relative;overflow:hidden}
+  .track{height:9px;background:#e8eef8;position:relative;overflow:hidden}
   .bar{height:100%;width:0;background:linear-gradient(90deg,var(--an-green-deep),var(--an-green-bright));transition:width .8s cubic-bezier(.2,.75,.25,1)}
   .signal-value{min-width:0;text-align:right;white-space:nowrap;font-family:var(--display);font-size:29px;font-weight:900;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
 
@@ -103,7 +103,7 @@
   .money-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;margin-top:18px}
   .money-card{min-width:0;border:1px solid var(--line);border-left:6px solid var(--an-green);padding:18px 18px 20px;background:#fff}
   .money-platform{font-family:var(--ui);font-size:14px;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#5d6c75}
-  .money-difference{display:inline-block;margin:9px 0 13px;padding:7px 11px 6px;background:#e8f8f1;border-bottom:3px solid var(--an-green);font-family:var(--display);font-size:49px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
+  .money-difference{display:inline-block;margin:9px 0 13px;padding:7px 11px 6px;background:#eaf2ff;border-bottom:3px solid var(--an-green);font-family:var(--display);font-size:49px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
   .money-difference-note{margin:-5px 0 13px;font-family:var(--ui);font-size:12.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#66747c}
   .money-copy{font-family:var(--ui);font-size:17px;line-height:1.58;color:#34434d}
   .money-copy strong{font-size:18px;font-weight:900;color:var(--an-navy);white-space:nowrap}
@@ -139,7 +139,7 @@
 
 
   /* Queens stay explorer */
-  .stay-builder{width:100%;margin-top:18px;border:1px solid #cfe8de;border-top:5px solid var(--an-green);background:#f2fbf7;padding:16px 16px 0;scroll-margin-top:52px}
+  .stay-builder{width:100%;margin-top:18px;border:1px solid #ccdcf5;border-top:5px solid var(--an-green);background:#f3f7ff;padding:16px 16px 0;scroll-margin-top:52px}
   .stay-builder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding:0 0 12px}
   .stay-builder-copy{max-width:510px}
   .stay-builder-kicker{display:inline-block;font-family:var(--ui);font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--an-green-deep);padding:5px 8px;margin-bottom:7px}
@@ -151,34 +151,40 @@
   .platform-switch button[aria-pressed="true"]{background:var(--an-navy);color:#fff}
   .platform-switch button:focus-visible{outline:2px solid var(--an-green);outline-offset:2px}
 
-  .stay-control{border-top:1px solid #cfe1da;border-bottom:1px solid #cfe1da;padding:14px 0 13px}
+  .stay-control{border-top:1px solid #d5e1f2;border-bottom:1px solid #d5e1f2;padding:14px 0 13px}
   .stay-control-top{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:10px}
   .stay-control-label{font-family:var(--ui);font-size:13px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#53616b}
   .stay-night-readout{font-family:var(--display);font-size:33px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums}
   .stay-range-wrap{position:relative;padding:7px 0 1px}
   .stay-range{--fill:100%;display:block;width:100%;height:24px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
-  .stay-range::-webkit-slider-runnable-track{height:8px;background:linear-gradient(90deg,var(--an-green) 0 var(--fill),#dfe8e4 var(--fill) 100%);border-radius:999px}
+  .stay-range::-webkit-slider-runnable-track{height:8px;background:linear-gradient(90deg,var(--an-green) 0 var(--fill),#dfe8f5 var(--fill) 100%);border-radius:999px}
   .stay-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-6px;border-radius:50%;background:var(--an-green-bright);border:3px solid #fff;box-shadow:0 0 0 2px var(--an-navy)}
-  .stay-range::-moz-range-track{height:8px;background:#dfe8e4;border-radius:999px}
+  .stay-range::-moz-range-track{height:8px;background:#dfe8f5;border-radius:999px}
   .stay-range::-moz-range-progress{height:8px;background:var(--an-green);border-radius:999px}
   .stay-range::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--an-green-bright);border:3px solid #fff;box-shadow:0 0 0 2px var(--an-navy)}
   .stay-range:focus-visible{outline:2px solid var(--an-green);outline-offset:4px}
   .stay-range-scale{display:flex;justify-content:space-between;margin-top:3px;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#77828a}
 
   .stay-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
-  .stay-result{min-width:0;padding:15px 18px 14px 0;border-right:1px solid #cfe1da}
+  .stay-result{min-width:0;padding:15px 18px 14px 0;border-right:1px solid #d5e1f2}
   .stay-result:nth-child(2){padding-left:18px}
   .stay-result:last-child{border-right:0;padding-left:18px;padding-right:0}
   .stay-result-label{font-family:var(--ui);font-size:12px;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#65727b}
   .stay-result-value{margin:5px 0 4px;font-family:var(--display);font-size:42px;font-weight:900;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
-  .stay-result.premium{background:#e9f7f1;padding-right:12px}
+  .stay-result.premium{background:#eaf2ff;padding-right:12px}
   .stay-result.premium .stay-result-value{color:var(--an-green-deep)}
   .stay-result-meta{font-family:var(--ui);font-size:14.5px;line-height:1.5;color:#66737c}
   .stay-premium-pct{display:inline-block;margin-left:5px;color:var(--an-green-deep);font-weight:900}
-  .stay-builder-note{margin:0;padding:12px 0 14px;border-top:1px solid #d8e9e2;font-family:var(--ui);font-size:14.5px;line-height:1.6;color:#617078}
+  .stay-builder-note{margin:0;padding:12px 0 14px;border-top:1px solid #d8e4f5;font-family:var(--ui);font-size:14.5px;line-height:1.6;color:#617078}
 
   @media (max-width:750px){
     .an-shell{max-width:100%}
+    .brandbar{padding:11px 18px}
+    .hero{padding:24px 18px 23px}
+    section.content-section{padding-left:18px;padding-right:18px}
+    .score{padding-left:16px;padding-right:16px}
+    .score .value{font-size:37px}
+    .jump button{padding:10px 12px;font-size:11px}
     .stay-builder-head{gap:12px}
     .stay-builder-copy{max-width:500px}
     .money-card{padding:18px 16px}
@@ -190,8 +196,8 @@
     .platform-switch{width:100%}
     .platform-switch button{padding:10px 9px}
     .stay-results{grid-template-columns:1fr}
-    .stay-result,.stay-result:nth-child(2),.stay-result:last-child{padding:15px 0;border-right:0;border-bottom:1px solid #cfe1da}
-    .stay-result.premium{padding:15px 12px;background:#e9f7f1}
+    .stay-result,.stay-result:nth-child(2),.stay-result:last-child{padding:15px 0;border-right:0;border-bottom:1px solid #d5e1f2}
+    .stay-result.premium{padding:15px 12px;background:#eaf2ff}
     .stay-result:last-child{border-bottom:0}
     .stay-result-value{font-size:36px}
   }
@@ -242,14 +248,14 @@
 <body>
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 <div class="an-shell">
-  <header class="brandbar" aria-label="Action Network Data and Research">
-    <div class="brandmark">ACTION <i>NETWORK</i></div>
+  <header class="brandbar" aria-label="RotoGrinders Data and Research">
+    <div class="brandmark">ROTO<i>GRINDERS</i></div>
     <div class="brandtag">Data &amp; Research</div>
   </header>
 
   <section class="hero" id="top">
     <div class="eyebrow">2026 US Open Accommodation Analysis</div>
-    <p class="dek">Action Network analyzed 2,073 Airbnb and Booking.com listings in Queens and Manhattan. In Queens, average accommodation prices were 22% to 27% higher for a 13-night tournament-period stay than for the same-length stay one month later.</p>
+    <p class="dek">RotoGrinders analyzed 2,073 Airbnb and Booking.com listings in Queens and Manhattan. In Queens, average accommodation prices were 22% to 27% higher for a 13-night tournament-period stay than for the same-length stay one month later.</p>
   </section>
 
   <div class="score-strip" aria-label="Top findings">
@@ -449,7 +455,7 @@
 
     <section class="content-section" id="methodology">
       <div class="section-title"><h2>Methodology</h2></div>
-      <p>Action Network compared displayed accommodation prices on Airbnb and Booking.com for Queens and Manhattan across two equal 13-night stay windows.</p>
+      <p>RotoGrinders compared displayed accommodation prices on Airbnb and Booking.com for Queens and Manhattan across two equal 13-night stay windows.</p>
       <div class="method">
         <ul class="method-list">
           <li><strong>Tournament-period stay:</strong> Aug. 31–Sept. 13, 2026</li>

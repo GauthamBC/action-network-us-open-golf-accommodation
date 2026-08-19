@@ -58,9 +58,9 @@
 
   .jump{position:sticky;top:0;z-index:50;display:flex;gap:0;width:100%;overflow-x:auto;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);scrollbar-width:none;box-shadow:0 4px 13px rgba(16,24,32,.05)}
   .jump::-webkit-scrollbar{display:none}
-  .jump a{flex:0 0 auto;padding:11px 15px;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.065em;text-transform:uppercase;text-decoration:none;color:#56636d;border-right:1px solid #edf0f2}
-  .jump a:hover,.jump a:focus{color:var(--an-green-deep);outline:none}
-  .jump a.is-active{color:var(--an-green-deep);box-shadow:inset 0 -3px 0 var(--an-green);background:#f5faf8}
+  .jump button{flex:0 0 auto;border:0;border-right:1px solid #edf0f2;background:transparent;padding:11px 15px;cursor:pointer;font-family:var(--ui);font-size:11.5px;font-weight:800;letter-spacing:.065em;text-transform:uppercase;color:#56636d;white-space:nowrap}
+  .jump button:hover,.jump button:focus{color:var(--an-green-deep);outline:none}
+  .jump button.is-active{color:var(--an-green-deep);box-shadow:inset 0 -3px 0 var(--an-green);background:#f5faf8}
 
   /* Full-width iframe body. Sections use padding rather than a centered fixed-width shell. */
   main{width:100%;max-width:none;margin:0;padding:0 0 34px}
@@ -139,7 +139,7 @@
 
 
   /* Queens stay explorer */
-  .stay-builder{width:100%;margin-top:18px;border:1px solid #cfe8de;border-top:5px solid var(--an-green);background:#f2fbf7;padding:16px 16px 0}
+  .stay-builder{width:100%;margin-top:18px;border:1px solid #cfe8de;border-top:5px solid var(--an-green);background:#f2fbf7;padding:16px 16px 0;scroll-margin-top:52px}
   .stay-builder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding:0 0 12px}
   .stay-builder-copy{max-width:510px}
   .stay-builder-kicker{display:inline-block;font-family:var(--ui);font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--an-green-deep);padding:5px 8px;margin-bottom:7px}
@@ -268,10 +268,11 @@
   </div>
 
   <nav class="jump" aria-label="Page sections">
-    <a href="#queens">Queens</a>
-    <a href="#cost">13-Night Cost</a>
-    <a href="#manhattan">Manhattan</a>
-    <a href="#methodology">Methodology</a>
+    <button type="button" data-target="queens">Queens</button>
+    <button type="button" data-target="queensStayBuilder">Queens Calculator</button>
+    <button type="button" data-target="manhattan">Manhattan</button>
+    <button type="button" data-target="manhattanStayBuilder">Manhattan Calculator</button>
+    <button type="button" data-target="methodology">Methodology</button>
   </nav>
 
   <main>
@@ -731,15 +732,31 @@
   document.addEventListener('scroll',updateProgress,{passive:true});
   updateProgress();
 
-  const jumpLinks=[...document.querySelectorAll('.jump a')];
-  const sectionMap=jumpLinks.map(link=>({link,section:document.querySelector(link.getAttribute('href'))})).filter(x=>x.section);
+  const jumpButtons=[...document.querySelectorAll('.jump button[data-target]')];
+  const sectionMap=jumpButtons.map(button=>({
+    button,
+    section:document.getElementById(button.dataset.target)
+  })).filter(item=>item.section);
+
+  jumpButtons.forEach(button=>{
+    button.addEventListener('click',()=>{
+      const target=document.getElementById(button.dataset.target);
+      if(!target) return;
+      target.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'});
+    });
+  });
+
   function setActiveNav(){
     const y=window.scrollY+90;
     let active=sectionMap[0];
-    sectionMap.forEach(item=>{if(item.section.offsetTop<=y) active=item;});
-    jumpLinks.forEach(link=>link.classList.remove('is-active'));
-    if(active) active.link.classList.add('is-active');
+    sectionMap.forEach(item=>{
+      const top=item.section.getBoundingClientRect().top+window.scrollY;
+      if(top<=y) active=item;
+    });
+    jumpButtons.forEach(button=>button.classList.remove('is-active'));
+    if(active) active.button.classList.add('is-active');
   }
+
   document.addEventListener('scroll',setActiveNav,{passive:true});
   setActiveNav();
 

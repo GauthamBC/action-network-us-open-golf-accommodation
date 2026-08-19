@@ -53,8 +53,10 @@
   .score-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-bottom:1px solid var(--line);background:#fff}
   .score{padding:18px 18px 16px;border-right:1px solid var(--line);min-width:0}
   .score:last-child{border-right:0}
-  .score .value{font-family:var(--display);font-size:36px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .score:nth-child(3) .value{font-size:30px}
+  .score .value{font-family:var(--display);font-size:33px;font-weight:900;line-height:1;color:var(--an-green-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
   .score .label{margin-top:7px;font-family:var(--ui);font-size:12.5px;font-weight:800;line-height:1.35;letter-spacing:.04em;text-transform:uppercase;color:#4e5d67}
+  .score .value span{display:inline-block;white-space:nowrap}
 
   .jump{position:sticky;top:0;z-index:50;display:flex;gap:0;width:100%;overflow-x:auto;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);scrollbar-width:none;box-shadow:0 4px 13px rgba(16,24,32,.05)}
   .jump::-webkit-scrollbar{display:none}
@@ -183,7 +185,7 @@
     .hero{padding:24px 18px 23px}
     section.content-section{padding-left:18px;padding-right:18px}
     .score{padding-left:16px;padding-right:16px}
-    .score .value{font-size:34px}
+    .score .value{font-size:31px}
     .jump button{padding:10px 12px;font-size:11px}
     .stay-builder-head{gap:12px}
     .stay-builder-copy{max-width:500px}
